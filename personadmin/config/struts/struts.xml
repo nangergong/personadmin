@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+
+	<!-- 方便于开发配置一些属性 -->
+	<!-- 常量值 -->
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.reload" value="true" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<constant name="struts.ui.theme" value="simple" />
+	
+	<!-- 搜索管理-->
+	<package name="find-default" extends="struts-default" namespace="/find">
+		<!-- 任务查询  -->
+		<action name="timeAction" class="com.sxdx.web.OperateAction">
+			
+			<result name="success">
+				../jsp/chaxun1.jsp
+			</result>
+			<result name="doFind">
+				/jsp/chaxun1.jsp
+			</result>
+			<result name="findTaskByName">
+				/jsp/chaxun1.jsp
+			</result>
+			<result name="deleteTaskSuccess">
+				/jsp/chaxun1.jsp
+			</result>
+			<result name="toUpdate">
+				/jsp/modifyrenwu.jsp
+			</result>
+			<result name="updateSuccess" type="redirect">
+				timeAction!findTask
+			</result>
+			<result name="renwuxinxi" >
+				/jsp/count-renwu.jsp
+			</result>
+			<result name="ok" type="redirect">
+				timeAction!findTask
+			</result>
+
+		</action>
+		
+		<!-- 日记管理 -->
+		<action name="diaryAction" class="com.sxdx.web.DiaryAction">
+			<result>
+				/jsp/chaxun2.jsp
+			</result>
+			<result name="findDiaryByTime">
+				/jsp/chaxun2.jsp
+			</result>
+			<result name="findDiaryByName">
+				/jsp/chaxun2.jsp
+			</result>
+			<result name="deleteDiaryById">
+				/jsp/chaxun2.jsp
+			</result>
+			<result name="toupdate">
+				/jsp/modifyriji.jsp
+			</result>
+			<result name="doUpdate" type="redirect">
+				diaryAction!findRiJi
+			</result>
+			<result name="rijixinxi">
+				/jsp/count-riji.jsp
+			</result>
+			<result name="ok" type="redirect">
+				diaryAction!findRiJi
+			</result>
+		</action>
+	</package>
+	
+	<!-- 用户管理和任务管理 -->
+	<package name="personTime-default" extends="struts-default" namespace="/">
+		<default-action-ref name="loginAction"/>
+		<!-- 登陆 -->
+		<action name="loginAction" class="com.sxdx.web.LoginAction" method="login">
+			<result name="login" >
+				/jsp/login.jsp
+			</result>
+			<result name="index" >
+				/jsp/index.jsp
+			</result>
+		</action>
+		
+		<!-- 注册 -->
+		<action name="registAction" class="com.sxdx.web.RegistAction" method="add">
+			<result name="registyonghu" type="redirect">
+				/jsp/login.jsp
+			</result>
+		</action>
+		<!-- 修改密码 -->
+		<action name="xtsz" class="com.sxdx.web.ModifypwdAction">
+		<result name="ok" >
+				/jsp/xiugaikouling.jsp
+			</result>
+			<result name="exit" >
+				/jsp/xiugaikouling.jsp
+			</result>
+		</action>
+		<!-- 添加任务 -->
+		<action name="renwu" class="com.sxdx.web.renwuAction">
+		<result name="addrenwu" >
+				/jsp/addrenwu.jsp
+		</result>
+		<result name="addriji" >
+				/jsp/addriji.jsp
+		</result>
+		</action>
+		
+		<!-- 查询用户信息 -->
+		<action name="chayh" class="com.sxdx.web.UserMessageAction">
+		<result name="yonghuxinxi" >
+				/jsp/yonghuxinxi.jsp
+		</result>
+		<result name="modifyyonghu" >
+				/jsp/modifyyonghu.jsp
+		</result>
+		<result name="yhxx" type="redirect">
+				chayh!yhxx
+		</result>
+		<result name="ok" type="redirect">
+				chayh!yhxx
+		</result>
+		
+			
+		</action>
+		
+		<!-- dateBase前后台Action -->
+	
+		<action name="creatDateBase" class="com.sxdx.web.dataBaseAction" method="creatDateBase">
+			<result name="success" >/jsp/databaseBackup.jsp</result>
+			<result name="error">/jsp/error.jsp</result>
+		</action>
+		<action name="recoverDataBase" class="com.sxdx.web.dataBaseAction" method="recoverDataBase">
+			<result name="success" >/jsp/databaseRecover.jsp</result>
+			<result name="error">/jsp/error.jsp</result>
+		</action>								
+	</package>
+	
+		<!-- 搜索管理-->
+	<package name="rili-default" extends="struts-default" namespace="/rili">
+		<!-- 日历任务查询  -->
+		<action name="riliAction" class="com.sxdx.web.RiliDiaryAction">
+			<result name="addTaskByRili">
+				/jsp/wnl.jsp
+			</result>
+			<result name="rilixinxi" >
+				/jsp/count-rili.jsp
+			</result>
+			<result name="ok" type="redirect">
+				riliAction!findRili
+			</result>
+			<result name="toUpdateRiLi">
+				/jsp/modifyrili.jsp
+			</result>
+			<result name="doUpdateRiLi" type="redirect">
+				riliAction!findRili
+			</result>
+			<result name="updateSuccess" type="redirect">
+				riliAction!findRili
+			</result>
+		</action>
+	</package>
+	
+	<!-- 提醒功能 -->
+	<package name="tixing-default" extends="struts-default" namespace="/tx">
+		<action name="tiXingAction" class="com.sxdx.web.TixingAction">
+			<result name="tixing" >
+				/jsp/show.jsp
+			</result>
+		</action>
+	</package>
+</struts>
